@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novidades da Netflix</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="title">
+        <h1>Calendário de novidades da Netflix</h1>
+    </div>
+    <div id="calendar-container">
+        <div id='calendar'></div>
+    </div>
+    <script src='includes/fullcalendar-scheduler-6.0.3/dist/index.global.js'></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+                locale: 'pt-br',
+                eventLimit: false,
+                nowIndicator: true,
+                navLinks: true,
+                
+                selectMirror: true,
+                headerToolbar: {
+                    start: 'dayGridMonth,timeGridWeek,timeGridDay',
+                    center: 'title',
+                    right:  'prev,next'
+                },
+                buttonText: {
+                    today: 'Hoje',
+                    month: 'Mês',
+                    week: 'Semana',
+                    day: 'Hoje',
+                    list: 'Lista'
+                },
+                initialView: 'dayGridMonth'
+            });
+            calendar.render();
+            getNextReleases(calendar);
+        });
+
+        async function getNextReleases(calendar, currentPage, data) {
+            currentPage = typeof currentPage !== "undefined" ? currentPage: 1;
+            data = typeof data !== "undefined" ? data: [];
+
+            let request = await fetch(`https://about.netflix.com/api/data/releases?language=pt-br&page=${currentPage}&country=BR`);
+            let response = await request.json();
+            let totalPages = response.totalPages;
+
+            currentPage++;
+
+            data = data.concat(response.data);
+            
+            if (currentPage > totalPages) {
+                data.forEach((release) => {
+                    calendar.addEvent({
+                        title: release.title1,
+                        start: new Date(release.startTime).toISOString()
+                    });
+                })
+            }else {
+                getNextReleases(calendar, currentPage, data);
+            }
+        }
+        
+        
+    </script>
+</body>
+
+</html> 
