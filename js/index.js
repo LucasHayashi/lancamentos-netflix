@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', function () {
         locale: 'pt-br',
         navLinks: true,
         dayMaxEvents: 3,
+        dayMinWidth: 100,
         headerToolbar: {
-            start: 'dayGridMonth,timeGridWeek,timeGridDay',
-            center: 'title',
-            right: 'prev,next'
+            start: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,prev,next'
         },
         initialView: 'dayGridMonth',
         eventDidMount: function (mouseEnterInfo) {
@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+    
     getNextReleases(calendar);
+
     calendar.render();
 });
