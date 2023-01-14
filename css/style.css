@@ -1,22 +1,31 @@
 body {
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    background-color: #f2f2f2;
-    font-family: 'Inter', sans-serif;
-  }
+  font-family: 'Open Sans', sans-serif;
+  background-color: #6750A4;
+  font-family: "Inter", sans-serif;
+}
 
-  h1 {
-    text-align: center;
-    color: rgb(229, 9, 20);
-  }
+#title {
+  margin: 10px;
+}
 
-  #calendar-container {
-    max-width: 1100px;
-    margin: 30px auto;
-  }
+h1 {
+  text-align: center;
+  color: #EADDFF;
+}
 
-  #calendar {
-    width: 100%;
-    background-color: #fff;
-    padding: 20px;
-    font-size: 0.8rem;
-  }
+#calendar-container {
+  width: 1100px;
+  margin: 0 auto 20px auto;
+}
+
+#calendar {
+  width: 100%;
+  background-color: #FFFBFE;
+  padding: 20px;
+  font-size: 0.8rem;
+}
+
+.fc-daygrid-dot-event .fc-event-time,
+.fc-daygrid-dot-event .fc-event-title {
+  color: #000;
+}

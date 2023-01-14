@@ -14,7 +14,8 @@ export default async function getNextReleases(calendar, currentPage, data) {
         data.forEach((release) => {
             calendar.addEvent({
                 title: release.title1,
-                start: new Date(release.startTime).toISOString()
+                start: new Date(release.startTime).toISOString(),
+                url: `https://www.netflix.com/br/title/${release.videoID}`
             });
         })
     } else {
