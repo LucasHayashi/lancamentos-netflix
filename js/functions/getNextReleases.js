@@ -1,12 +1,10 @@
 export default async function getNextReleases(calendar, currentPage, data) {
     currentPage = typeof currentPage !== "undefined" ? currentPage : 1;
     data = typeof data !== "undefined" ? data : [];
+    const netflixApi = `https://about.netflix.com/api/data/releases?language=pt-br&page=${currentPage}&country=BR`;
+    const url = 'https://corsproxy.io/?' + encodeURIComponent(netflixApi);
 
-    let request = await fetch(`https://about.netflix.com/api/data/releases?language=pt-br&page=${currentPage}&country=BR`, {
-        headers: {
-            "Access-Control-Allow-Origin": "*"
-        },
-    });
+    let request = await fetch(url);
     let response = await request.json();
     let totalPages = response.totalPages;
 
