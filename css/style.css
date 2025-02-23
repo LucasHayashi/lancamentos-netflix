@@ -1,16 +1,5 @@
 body {
-  font-family: 'Open Sans', sans-serif;
-  background-color: #6750A4;
-  font-family: "Inter", sans-serif;
-}
-
-#title {
-  margin: 10px;
-}
-
-h1 {
-  text-align: center;
-  color: #EADDFF;
+  font-family: "Open Sans", sans-serif;
 }
 
 #calendar-container {
@@ -21,14 +10,13 @@ h1 {
 #calendar {
   width: 100%;
   min-height: 700px;
-  background-color: #FFFBFE;
   padding: 20px;
   font-size: 0.8rem;
 }
 
 .fc-daygrid-dot-event .fc-event-time,
 .fc-daygrid-dot-event .fc-event-title {
-  color: #000;
+  color: inherit;
 }
 
 .fc .fc-toolbar {
@@ -37,4 +25,21 @@ h1 {
 
 .fc-toolbar-chunk {
   margin: 5px 0;
+}
+
+.tooltip.show {
+  opacity: 1;
+}
+
+.tooltip-inner img {
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .fc-toolbar-title {
+    order: -1;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
 }
