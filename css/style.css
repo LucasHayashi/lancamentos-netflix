@@ -10,7 +10,6 @@ body {
 #calendar {
   width: 100%;
   min-height: 700px;
-  padding: 20px;
   font-size: 0.8rem;
 }
 
@@ -41,5 +40,9 @@ body {
     width: 100%;
     text-align: center;
     margin-bottom: 10px;
+  }
+
+  .min-height-adjusted {
+    min-height: auto !important;
   }
 }

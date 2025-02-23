@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const calendarEl = document.getElementById("calendar");
+  const loadingEl = document.getElementById("loading");
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
     schedulerLicenseKey: "CC-Attribution-NonCommercial-NoDerivatives",
@@ -13,9 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
       method: "GET",
       failure: function (error) {
         console.error("Erro ao carregar eventos:", error);
-        alert(
-          "Não foi possível carregar os eventos. Tente novamente mais tarde."
-        );
       },
     },
     headerToolbar: {
@@ -26,12 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
     eventDidMount: function (info) {
       if (info.event.extendedProps.image) {
         let tooltipContent = `
-              <div style="text-align: center;">
-                <img src="${info.event.extendedProps.image}" alt="${info.event.title}" style="height: 250px; margin-bottom: 5px;">
-                <div>${info.event.title}</div>
-              </div>
-            `;
-
+          <div style="text-align: center;">
+            <img src="${info.event.extendedProps.image}" alt="${info.event.title}" style="height: 250px; margin-bottom: 5px;">
+            <div>${info.event.title}</div>
+          </div>
+        `;
         new bootstrap.Tooltip(info.el, {
           title: tooltipContent,
           html: true,
@@ -52,6 +49,13 @@ document.addEventListener("DOMContentLoaded", function () {
         window.open(info.event.url, "_blank");
       }
     },
+    loading: function (isLoading) {
+      if (isLoading) {
+        loadingEl.classList.remove("d-none");
+      } else {
+        loadingEl.classList.add("d-none");
+      }
+    },
   });
 
   try {
@@ -60,16 +64,15 @@ document.addEventListener("DOMContentLoaded", function () {
     console.error("Erro ao renderizar o calendário:", error);
   }
 
+  // Alternar tema
   const themeToggleButton = document.getElementById("theme-toggle");
   const themeIcon = document.getElementById("theme-icon");
-
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme) {
     document.documentElement.setAttribute("data-bs-theme", savedTheme);
     themeIcon.className =
       savedTheme === "dark" ? "bi bi-sun-fill" : "bi bi-moon-fill";
   }
-
   themeToggleButton.addEventListener("click", function () {
     const currentTheme = document.documentElement.getAttribute("data-bs-theme");
     const newTheme = currentTheme === "dark" ? "light" : "dark";
